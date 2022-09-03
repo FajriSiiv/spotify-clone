@@ -2,7 +2,6 @@ import axios from "axios";
 import React from "react";
 import styled from "styled-components";
 import { useStateProvider } from "../utils/StateProvider";
-import swal from "sweetalert";
 export default function Volume() {
   const [{ token }] = useStateProvider();
 
