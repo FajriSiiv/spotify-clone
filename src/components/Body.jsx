@@ -4,7 +4,7 @@ import { useStateProvider } from "../utils/StateProvider";
 import axios from "axios";
 import { reducerCases } from "../utils/Constants";
 import { FiClock } from "react-icons/fi";
-
+import swal from "sweetalert";
 export default function Body({ headerBackground }) {
   const [{ token, selectedList, selectedPlaylist }, dispatch] =
     useStateProvider();
@@ -38,9 +38,7 @@ export default function Body({ headerBackground }) {
           track_number: track.track_number,
         })),
       };
-      console.log(response);
       dispatch({ type: reducerCases.SET_PLAYLIST, selectedPlaylist });
-      console.log(selectedList.tracks[0].items[0].track.name);
     };
     getInitialPlaylist();
   }, [token, dispatch, selectedList]);
@@ -50,6 +48,53 @@ export default function Body({ headerBackground }) {
     const seconds = ((ms % 60000) / 1000).toFixed(0);
 
     return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+  };
+
+  const playTrack = async (
+    id,
+    name,
+    artists,
+    image,
+    context_uri,
+    track_numner
+  ) => {
+    try {
+      const res = await axios.put(
+        `https://api.spotify.com/v1/me/player/play`,
+        {
+          context_uri,
+          offset: {
+            position: track_numner - 1,
+          },
+          position_ms: 0,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+      if (res.status === 204) {
+        const currentPlaying = {
+          id,
+          name,
+          artists,
+          image,
+        };
+        dispatch({ type: reducerCases.SET_PLAYING, currentPlaying });
+        dispatch({ type: reducerCases.SET_PLAYER_STATE, playerState: true });
+      } else {
+        dispatch({ type: reducerCases.SET_PLAYER_STATE, playerState: true });
+      }
+    } catch (err) {
+      swal({
+        title: err.response.data.error.reason,
+        text: err.response.data.error.message,
+        icon: "error",
+        button: "Sorry! 🗿",
+      });
+    }
   };
 
   return (
@@ -99,7 +144,7 @@ export default function Body({ headerBackground }) {
                   index
                 ) => {
                   return (
-                    <div className="row" key={id}>
+                    <div className="row" key={id} onClick={() => playTrack()}>
                       <div className="col">
                         <span>{index + 1}</span>
                       </div>
@@ -169,6 +214,7 @@ const Container = styled.div`
         headerBackground ? "#121212" : "none"};
     }
     .tracks {
+      cursor: pointer;
       margin: 0 2rem;
       display: flex;
       flex-direction: column;

@@ -1,10 +1,32 @@
 import React from "react";
-import { BiSearch, BiUserCircle } from "react-icons/bi";
+import { BiLogOut, BiSearch, BiUserCircle } from "react-icons/bi";
 import styled from "styled-components";
 import { useStateProvider } from "../utils/StateProvider";
+import swal from "sweetalert";
 
 export default function Navbar({ navBackground }) {
   const [{ userInfo }] = useStateProvider();
+
+  const logoutClick = () => {
+    swal({
+      title: "Thanks for coming here!",
+      text: "Remove access `Spotify Clone` in your account.",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        swal("You need remove access `SpotifyClone`", {
+          icon: "warning",
+        }).then(() => {
+          window.location = "https://www.spotify.com/id/account/apps/";
+        });
+      } else {
+        swal("It's fine if you won't remove access, pretty sure no problem");
+      }
+    });
+  };
+
   return (
     <Container navBackground={navBackground}>
       <div className="search_bar">
@@ -12,10 +34,17 @@ export default function Navbar({ navBackground }) {
         <input type="text" placeholder="Artists, songs, or podcasts" />
       </div>
       <div className="avatar">
-        <a href="#">
+        <span>
           <BiUserCircle />
           <span>{userInfo?.userName}</span>
-        </a>
+        </span>
+        <div
+          // href="https://www.spotify.com/id/account/apps/"
+          // target="_blank"
+          onClick={logoutClick}
+        >
+          Logout <BiLogOut />
+        </div>
       </div>
     </Container>
   );
@@ -26,7 +55,7 @@ const Container = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 2rem;
-  height: 68px;
+  height: 100px;
   position: sticky;
   top: 0;
   transition: all 0.3s ease-in-out;
@@ -57,7 +86,22 @@ const Container = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    a {
+    cursor: pointer;
+    gap: 2rem;
+
+    div {
+      text-decoration: none;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      text-transform: uppercase;
+      svg {
+        font-size: 1.2rem;
+      }
+    }
+    span {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -65,6 +109,7 @@ const Container = styled.div`
       text-decoration: none;
       color: white;
       font-weight: bold;
+
       svg {
         font-size: 1.3rem;
         background-color: #282828;
