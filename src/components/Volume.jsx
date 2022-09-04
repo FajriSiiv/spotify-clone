@@ -46,4 +46,7 @@ const Container = styled.div`
       background-color: red;
     }
   }
+  @media (max-width: 600px) {
+    display: none;
+  }
 `;

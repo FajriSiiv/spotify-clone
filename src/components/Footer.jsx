@@ -24,4 +24,8 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   padding: 0 1rem;
+  @media (max-width: 600px) {
+    grid-template-columns: none;
+    display: flex;
+  }
 `;

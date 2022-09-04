@@ -31,7 +31,7 @@ export default function Body({ headerBackground }) {
           id: track.id,
           name: track.name,
           artists: track.artists.map((artist) => artist.name),
-          image: track.album.images[2],
+          image: track.album.images[1],
           duration: track.duration_ms,
           album: track.album.name,
           context_uri: track.album.uri,
@@ -240,6 +240,53 @@ const Container = styled.div`
           .info {
             display: flex;
             flex-direction: column;
+          }
+        }
+      }
+    }
+  }
+  @media (max-width: 600px) {
+    .playlist {
+      flex-direction: column;
+      align-items: flex-start;
+      .details {
+        .title {
+          font-size: 1.5rem;
+        }
+      }
+    }
+    .list {
+      .header_row {
+        display: none;
+      }
+      .tracks {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        margin: 0 0.4rem;
+        width: 95%;
+        row-gap: 0.5rem;
+        .row {
+          width: 50%;
+          display: flex;
+          grid-template-columns: none;
+          justify-content: center;
+          align-items: baseline;
+          .col {
+            display: none;
+          }
+          .col:nth-child(2) {
+            display: block;
+            display: flex;
+            flex-direction: column;
+            img {
+              height: 100px;
+              width: 100px;
+              border-radius: 50%;
+            }
+            .info {
+              font-size: 0.7rem;
+            }
           }
         }
       }

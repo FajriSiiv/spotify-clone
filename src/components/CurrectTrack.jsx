@@ -67,4 +67,14 @@ const Container = styled.div`
       }
     }
   }
+  @media (max-width: 600px) {
+    width: 100%;
+
+    .track {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%;
+    }
+  }
 `;

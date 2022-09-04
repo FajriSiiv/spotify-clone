@@ -132,4 +132,7 @@ const Container = styled.div`
   .next {
     font-size: 2rem;
   }
+  @media (max-width: 600px) {
+    display: none;
+  }
 `;

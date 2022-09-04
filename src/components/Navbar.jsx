@@ -34,15 +34,11 @@ export default function Navbar({ navBackground }) {
         <input type="text" placeholder="Artists, songs, or podcasts" />
       </div>
       <div className="avatar">
-        <span>
+        <span className="ava">
           <BiUserCircle />
           <span>{userInfo?.userName}</span>
         </span>
-        <div
-          // href="https://www.spotify.com/id/account/apps/"
-          // target="_blank"
-          onClick={logoutClick}
-        >
+        <div onClick={logoutClick}>
           Logout <BiLogOut />
         </div>
       </div>
@@ -116,6 +112,29 @@ const Container = styled.div`
         padding: 0.2rem;
         color: #c7c5c5;
         border-radius: 1rem;
+      }
+    }
+  }
+  @media (max-width: 600px) {
+    padding: 1rem 0.5rem;
+    flex-direction: column;
+    gap: 0.5rem;
+    .search_bar {
+      width: 80%;
+      padding: 0.1rem 1rem;
+      input {
+        height: 1.5rem;
+      }
+    }
+    .avatar {
+      span {
+        font-size: 0.6rem;
+      }
+      div {
+        font-size: 0.6rem;
+        svg {
+          font-size: 0.9rem;
+        }
       }
     }
   }

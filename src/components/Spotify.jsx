@@ -84,4 +84,9 @@ const Container = styled.div`
       }
     }
   }
+  @media (max-width: 600px) {
+    .spotify__body {
+      grid-template-columns: 0 100vw;
+    }
+  }
 `;
