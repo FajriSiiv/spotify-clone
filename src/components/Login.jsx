@@ -42,6 +42,8 @@ const Container = styled.div`
   background-color: #00ff88;
   gap: 5rem;
   img {
+    max-width: 100%;
+    object-fit: contain;
     height: 20vh;
   }
   button {
@@ -52,5 +54,17 @@ const Container = styled.div`
     color: #49f585;
     font-size: 1.5rem;
     cursor: pointer;
+  }
+  @media (max-width: 500px) {
+    gap: 1rem;
+    img {
+      height: 50px;
+      width: 100%;
+    }
+    button {
+      padding: 0.5rem 2rem;
+      border-radius: 1rem;
+      font-size: 1rem;
+    }
   }
 `;
